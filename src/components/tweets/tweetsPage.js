@@ -14,6 +14,7 @@ const TweetsPage = () => {
     getLatestTweets().then((tweets) => setTweets(tweets));
   }, []);
 
+  const handleClick = () => console.log('click');
   // si quiere hacerse en forma de async await no se puede directamente en el useEffect, tiene que ser dentro
   // useEffect(() => {
   //     const execute = async () => {
@@ -28,10 +29,12 @@ const TweetsPage = () => {
   const a = 'hola'
   const b = {[a]: 5 } ===> const b = {'hola' : 5 }
  */
+
   const className = classNames(styles.tweetsPage, {
     [styles.empty]: tweets.length,
   });
   const style = { color: "red", backgroundColor: "green" };
+
 
   return (
     <div className={className} style={style}>
@@ -42,7 +45,7 @@ const TweetsPage = () => {
           <Button>añade tweet</Button>
         )}
       </ul>
-      <Button disabled={ true } variants="20px" variant= "primary" >esto es mu muajo to</Button>
+      <Button disabled={ false } variants="20px" variant= "primary" onClick={handleClick}>esto es mu muajo to</Button>
     </div>
   );
 };

@@ -1,9 +1,9 @@
-import TweetsPage from "./components/tweets/tweetsPage";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (
     <div className="App">
-       <TweetsPage/>
+      <Layout></Layout>
     </div>
   );
 }
