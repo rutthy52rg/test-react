@@ -1,14 +1,14 @@
-const Body = () => {
+const Footer = () => {
     //const [currentValue, setNewValue] = useState([]);
     //useEffect(() => {
         //setNewValue(currentValue);
         //.then((currentValue) => setNewValue(currentValue));
     //}, []);
     return (
-        <div>
+        <footer>
             {/*console.log(currentValue)*/}
-            test Body
-        </div>
+            @copyright
+        </footer>
     )
 };
-export default Body;
+export default Footer;

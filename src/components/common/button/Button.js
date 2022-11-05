@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
-
 const accentColor = '#ff00ff';
-
-const ButtonStyled = styled.button`
+const Button = styled.button`
   border-radius: ${styleProps => styleProps.radius};
   padding: 0.5rem 0;
   margin: 0.5rem 1rem;
@@ -17,17 +15,4 @@ const ButtonStyled = styled.button`
     }
 `;
 
-
-const  Button = (styleProps) => {
-    //const [currentValue, setNewValue] = useState([]);
-    //useEffect(() => {
-        //setNewValue(currentValue);
-        //.then((currentValue) => setNewValue(currentValue));
-    //}, []);
-    return (
-        <div>
-            <ButtonStyled {...styleProps}></ButtonStyled>
-        </div>
-    )}
-;
 export default Button;

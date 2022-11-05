@@ -1,9 +1,13 @@
-import Layout from "./components/layout/Layout";
+import LoginPage from "./components/auth/Login";
+import NewTweetPage from "./components/tweets/NewTweetPage";
+import TweetsPage from "./components/tweets/TweetsPage";
 
 function App() {
   return (
     <div className="App">
-      <Layout></Layout>
+      <LoginPage/>
+      <NewTweetPage></NewTweetPage>
+      <TweetsPage></TweetsPage>
     </div>
   );
 }

@@ -1,14 +1,14 @@
-import Body from '../sections/body/Body';
-import Footer from '../sections/footer/Footer';
-import Header from '../sections/header/Header';
-const Layout = () => {
+import Footer from './footer/Footer';
+import Header from './header/Header';
+import Main from './main/Main';
+const Layout = ({title, children}) => {
     // const [currentValue, setNewValue] = useState([]);
     // useEffect(() => {
     // }, []);
     return (
         <div>
             <Header></Header>
-            <Body></Body>
+            <Main title={title}>{children}</Main>
             <Footer></Footer>
         </div>
     )

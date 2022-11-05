@@ -1,4 +1,6 @@
-const Footer = () => {
+import Layout from "../templates/Layout";
+
+const NewTweetPage = () => {
     //const [currentValue, setNewValue] = useState([]);
     //useEffect(() => {
         //setNewValue(currentValue);
@@ -7,8 +9,8 @@ const Footer = () => {
     return (
         <div>
             {/*console.log(currentValue)*/}
-            test Footer
+            <Layout title="new tweet"> test new tweet</Layout>
         </div>
     )
 };
-export default Footer;
+export default NewTweetPage;

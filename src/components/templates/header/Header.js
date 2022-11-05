@@ -1,4 +1,4 @@
-import logo, { ReactComponent as Icon } from "../../../assets/images/twitter-logo.svg;";
+import { ReactComponent as Icon } from "../../../assets/images/twitter-logo.svg";
 import Button from "../../common/button/Button";
 
 const Header = () => {
@@ -9,10 +9,10 @@ const Header = () => {
     //}, []);
     return (
         <header>
-            <img src={logo} /> 
-            <Icon></Icon>
+           {/* <img src={logo} width="30px"/> */}
+            <Icon width="30px"></Icon>
             <nav></nav>
-            <Button radius="20px" disabled primary>hola espero que escribas </Button>
+            <Button radius="20px" disabled primary> Login </Button>
         </header>
     )
 };
