@@ -7,9 +7,12 @@ const InputStyled = styled.input`
     background-color:#f5f5f5;
     margin:2px;
 `
-const Input = ({ inputType, inputName, ...styleProps }) => {
+
+const props = ((props, styleProps) => ( {...props, ...styleProps}));
+
+const Input = ({ ...props}) => {
     return (
-        <InputStyled type={inputType} name={inputName} {...styleProps}/>
+        <InputStyled {...props}/>
     )
 };
 export default Input;
