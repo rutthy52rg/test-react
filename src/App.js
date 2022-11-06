@@ -1,12 +1,11 @@
-import LoginPage from "./components/auth/Login";
-import NewTweetPage from "./components/tweets/NewTweetPage";
+import LoginPage from "./components/auth/LoginPage";
 import TweetsPage from "./components/tweets/TweetsPage";
 
 function App() {
   return (
     <div className="App">
-      <LoginPage/>
-      <NewTweetPage></NewTweetPage>
+      <LoginPage></LoginPage>
+      {/* <NewTweetPage></NewTweetPage> */}
       <TweetsPage></TweetsPage>
     </div>
   );

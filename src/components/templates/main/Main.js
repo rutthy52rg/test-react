@@ -5,10 +5,10 @@ const Main = ({title,children}) => {
         //.then((currentValue) => setNewValue(currentValue));
     //}, []);
     return (
-        <main>
+        <main className="row">
             {/*console.log(currentValue)*/}
-            <h1>{title}</h1>
-            <section>{children}</section>
+            <h1 className="col s12 center">{title}</h1>
+            <section className="col s12">{children}</section>
         </main>
     )
 };

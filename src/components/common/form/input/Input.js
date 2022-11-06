@@ -1,18 +1,27 @@
-import styled from 'styled-components';
-const InputStyled = styled.input`
-    all: unset;
-    padding: 5px 2px;
-    border-bottom: ${styleProps => styleProps.borderColor};
-    border-radius:2px;
-    background-color:#f5f5f5;
-    margin:2px;
-`
+import classNames from "classnames";
+import styled from "styled-components";
+import "./input.css";
 
-const props = ((props, styleProps) => ( {...props, ...styleProps}));
+const CustomizedInput = styled.input`
+  border-radius: ${(styleProps) => styleProps.radius};
+  margin: ${(styleProps) => styleProps.margin};
+`;
 
-const Input = ({ ...props}) => {
-    return (
-        <InputStyled {...props}/>
-    )
+const Input = ({ className, label, colSize, ...props }) => {
+  return (
+    <div className={`input-field col ${colSize}`}>
+      <CustomizedInput {...props} className={classNames("", className)} />
+      <label htmlFor={label}>{label}</label>
+    </div>
+  );
 };
+
 export default Input;
+
+/* DESTRUCTURING 
+ const obj = {a:2, b:5, c:8}
+ const { a } = obj es lo mismo que const a = obj.a
+ const { a, ...rest} = obj el resultado es  rest = {b:5, c:8} 
+*/
+
+// const props = ((props, styleProps) => ( {...props, ...styleProps}));

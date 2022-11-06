@@ -9,8 +9,6 @@ const TweetsPage = () => {
     getLatestTweets().then((tweets) => setTweets(tweets));
   }, []);
 
-  const handleClick = () => console.log('click');
-
   return (
     <Layout title="listado de tweets">
       <ul>
@@ -20,7 +18,6 @@ const TweetsPage = () => {
           <Button>añade tweet</Button>
         )}
       </ul>
-      <Button disabled={ false } variants="20px" variant= "primary" onClick={handleClick}>esto es mu muajo to</Button>
     </Layout>
   );
 };
