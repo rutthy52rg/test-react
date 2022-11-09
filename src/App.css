@@ -2,3 +2,7 @@
 .tweetsPage{
     background-color: red;
 }
+.auto-center{
+    float: initial !important;
+    margin: 0px auto;
+}

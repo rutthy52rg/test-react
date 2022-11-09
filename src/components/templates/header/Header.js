@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { ReactComponent as Icon } from "../../../assets/images/twitter-logo.svg";
 import Button from "../../common/button/Button";
-import "./header.css";
+import "./Header.css";
 
 const Header = ({ className, colorTheme }) => {
   // const [anchorElUser, setAnchorElUser] = useState(null);
