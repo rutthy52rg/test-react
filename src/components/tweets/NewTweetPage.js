@@ -1,6 +1,6 @@
 import Layout from "../templates/Layout";
 
-const NewTweetPage = () => {
+const NewTweetPage = (username, isLoged) => {
   //const [currentValue, setNewValue] = useState([]);
   //useEffect(() => {
   //setNewValue(currentValue);
@@ -8,7 +8,9 @@ const NewTweetPage = () => {
   //}, []);
   return (
     <div>
-      <Layout title="new tweet"> test new tweet</Layout>
+      <Layout title="new tweet" username={username} isLoged={isLoged}>
+        test new tweet
+      </Layout>
     </div>
   );
 };

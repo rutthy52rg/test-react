@@ -3,7 +3,7 @@ import Button from "../common/button/Button";
 import Card from "../common/card/Card";
 import Layout from "../templates/Layout";
 import { getLatestTweets } from "./service";
-const TweetsPage = () => {
+const TweetsPage = ({ username, isLoged }) => {
   const [tweets, setTweets] = useState([]);
   useEffect(() => {
     getLatestTweets().then((tweets) => setTweets(tweets));
@@ -14,6 +14,8 @@ const TweetsPage = () => {
       title="listado de tweets"
       mainClassname="container"
       sectionSize="s12"
+      username={username}
+      isLoged={isLoged}
     >
       {tweets.length ? (
         tweets.map((ele) => (

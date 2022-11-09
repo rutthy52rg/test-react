@@ -1,63 +1,67 @@
 import { useState } from "react";
 import Button from "../common/button/Button";
+import Form from "../common/form/Form";
 import Input from "../common/form/input/Input";
 import Layout from "../templates/Layout";
 import "./LoginPage.css";
+import { login } from "./serviceLogin";
 
-const LoginPage = () => {
-  const [currentUser, setNewUser] = useState([]);
-  const [currentPass, setNewPass] = useState([]);
+const LoginPage = ({ onLoginEvent }) => {
+  // !username y password tienen que llamarse igual que se pide en la api, porque lo que manda es un string con este nombre de variables
+
+  const [username, setNewUser] = useState("");
+  const [password, setNewPass] = useState("");
   const handleChangeUser = (event) => {
     setNewUser(event.target.value);
-    console.log(currentUser);
   };
   const handleChangePass = (event) => {
     setNewPass(event.target.value);
-    console.log(currentPass);
   };
-  const handleClick = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(currentPass, currentUser);
+    console.log(username, password);
+    login({ username, password }).then(() => onLoginEvent(username)); //puede ser then(onLoginEvent) si no tienes que pasarle parametros
   };
 
   return (
     <Layout
       title="Login"
-      mainClassname="container"
-      sectionSize="s8 auto-center"
+      mainClassName="container auto-center"
+      sectionClassName="s12"
     >
-      <form className="row">
+      <Form formClassName="row" onSubmit={handleSubmit}>
         <Input
           type="text"
           id="user"
           name="user"
-          onChange={handleChangeUser}
           label="User"
-          value={currentUser}
-          className="validate"
-          s
           colSize="s12"
+          className="validate"
+          required
+          onChange={handleChangeUser}
+          value={username}
         />
         <Input
           type="password"
           name="password"
           label="Password"
-          className="validate"
-          onChange={handleChangePass}
           colSize="s12"
-          value={currentPass}
+          className="validate"
+          required
+          onChange={handleChangePass}
+          value={password}
         />
         <Button
-          onClick={handleClick}
+          // onClick={handleClick}
           type="submit"
           radius="20px"
           className="waves-effect btn-small pink accent-2"
           colSize="s12"
-          disabled={!(currentUser && currentPass) ? true : false}
+          disabled={!(username && password) ? true : false}
         >
           Enviar
         </Button>
-      </form>
+      </Form>
     </Layout>
   );
 };

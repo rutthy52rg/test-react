@@ -5,11 +5,22 @@ const CustomizedMain = styled.main`
   width: ${(styleProps) => styleProps.width};
 `;
 
-const Main = ({ title, children, sectionSize, className, ...props }) => {
+const Main = ({
+  title,
+  children,
+  sectionClassName,
+  mainClassName,
+  ...props
+}) => {
   return (
-    <CustomizedMain {...props} className={classNames("row", className)}>
+    <CustomizedMain {...props} className={classNames("row", mainClassName)}>
       <h1 className="col s12 center">{title}</h1>
-      <section className={`col ${sectionSize}`}>{children}</section>
+      <section
+        className={classNames("col", sectionClassName)}
+        // className={`col ${sectionClass}`}
+      >
+        {children}
+      </section>
     </CustomizedMain>
   );
 };
