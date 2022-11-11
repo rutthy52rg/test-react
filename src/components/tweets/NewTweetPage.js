@@ -1,4 +1,4 @@
-import Layout from "../templates/Layout";
+import Layout from "../skeleton/Layout";
 
 const NewTweetPage = (username, isLoged) => {
   //const [currentValue, setNewValue] = useState([]);

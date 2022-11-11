@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Button from "../common/button/Button";
 import Card from "../common/card/Card";
-import Layout from "../templates/Layout";
+import Layout from "../skeleton/Layout";
 import { getLatestTweets } from "./service";
 const TweetsPage = ({ username, isLoged }) => {
   const [tweets, setTweets] = useState([]);

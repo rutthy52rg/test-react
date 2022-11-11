@@ -2,7 +2,7 @@ import { useState } from "react";
 import Button from "../common/button/Button";
 import Form from "../common/form/Form";
 import Input from "../common/form/input/Input";
-import Layout from "../templates/Layout";
+import Layout from "../skeleton/Layout";
 import "./LoginPage.css";
 import { login } from "./serviceLogin";
 
