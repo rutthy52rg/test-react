@@ -1,26 +1,45 @@
 import classNames from "classnames";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Icon } from "../../../assets/images/twitter-logo.svg";
+import ContextAuth from "../../auth/ContextAuth";
 import ActionLink from "../../common/actionLink/ActionLink";
-import Button from "../../common/button/Button";
 import "./Header.css";
 
-const Header = ({ className, colorTheme, username, isLoged, linkEvent }) => {
-  // console.log("header", username, isLoged);
+const Header = ({ headerlassname, colorTheme }) => {
+  const {
+    isLoged,
+    handleLogout: linkEvent,
+    username,
+  } = useContext(ContextAuth);
   return (
-    <header className={classNames("row", className)}>
+    <header className={classNames("row", headerlassname)}>
       <nav className={`col s12 ${colorTheme}`}>
         {/* <img src={logo} width="30px"/> */}
-        <Icon width="30px" style={{ fill: "white" }}></Icon>
-        {!isLoged ? (
-          <Button
-            radius="20px"
-            colorTheme="#e91e63"
-            className="pink btn-small"
-            onClick={(e) => console.log("button")}
+        <div>
+          <Link to="/">
+            <Icon width="30px" style={{ fill: "white" }}></Icon>
+          </Link>
+          {isLoged ? (
+            <NavLink
+              to="/adverts/new"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              New Advert
+            </NavLink>
+          ) : (
+            ""
+          )}
+          <NavLink
+            to="/adverts"
+            className={({ isActive }) => (isActive ? "active" : "")}
+            end
           >
-            Login
-          </Button>
-        ) : (
+            Adverts
+          </NavLink>
+        </div>
+
+        {isLoged ? (
           <div className="flex-valign-center">
             <span>Hola {username} </span>
             <ActionLink
@@ -32,6 +51,8 @@ const Header = ({ className, colorTheme, username, isLoged, linkEvent }) => {
               linkEvent={linkEvent}
             />
           </div>
+        ) : (
+          ""
         )}
       </nav>
     </header>

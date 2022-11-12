@@ -29,7 +29,6 @@ const ActionLink = ({
   ...props
 }) => {
   const handleClick = (e) => {
-    e.preventDefault();
     linkEvent(e);
   };
 

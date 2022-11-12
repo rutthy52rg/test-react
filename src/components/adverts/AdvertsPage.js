@@ -1,38 +1,86 @@
-import { useState } from "react";
-import Storage from "../../utils/Storage";
+import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import ContextAuth from "../auth/ContextAuth";
 import Button from "../common/button/Button";
 import Card from "../common/card/Card";
 import Layout from "../skeleton/Layout";
-import { getLatestAdverts } from "./service";
+import { getAdversTags, getLatestAdverts } from "./service";
 
-const AdvertsPage = ({ username, isLoged, linkEvent }) => {
+const EmptyList = () => (
+  <div className="flex auto-center" style={{ margin: "5vh auto" }}>
+    <h6>Crea tu primer anuncio</h6>
+    <Button
+      as={Link}
+      to="/adverts/new"
+      className="waves-effect waves-effect btn-small"
+      radius="20px"
+      colortheme="#e91e63"
+    >
+      Añadir anuncio
+    </Button>
+  </div>
+);
+
+const AdvertsPage = () => {
+  const {
+    isLoged,
+    handleLogout: linkEvent,
+    username,
+  } = useContext(ContextAuth);
+
   const [adverts, setAdverts] = useState([]);
-  const accessToken = Storage.getStorage("auth");
-  console.log(accessToken);
+  const [tags, setTags] = useState([]);
+  const [error, setNewError] = useState(null);
+  useEffect(() => {
+    const execute = async () => {
+      try {
+        const adverts = await getLatestAdverts();
+        const tags = await getAdversTags();
+        setAdverts(adverts);
+        setTags(tags);
+      } catch (error) {
+        setNewError(error);
+      }
+    };
+    execute();
+  }, []);
 
-  getLatestAdverts().then(() => setAdverts(adverts));
+  const resetError = () => {
+    //mensajes de error
+    setNewError(false);
+  };
 
   return (
     <Layout
       title="listado de tweets"
-      mainClassname="container"
-      sectionSize="s12"
+      mainclassname="container"
+      sectionclassname="s12"
       username={username}
       isLoged={isLoged}
       linkEvent={linkEvent}
     >
-      {adverts.length ? (
-        adverts.map((ele) => (
-          <Card
-            key={ele.id}
-            description={ele.name}
-            colSize="s3"
-            alt="imagen"
-            image="https://materializecss.com/images/office.jpg"
-          />
-        ))
+      <p> {tags ? tags.map((tg, idx) => <span key={idx}>{tg} |</span>) : ""}</p>
+      {isLoged ? (
+        adverts.length ? (
+          adverts.map((ele) => (
+            <Card
+              key={ele.id}
+              title={ele.name}
+              colSize="s3"
+              alt="imagen"
+              photo={ele.photo}
+              price={ele.price}
+              linkDetail={ele.id}
+              advertags={ele.tags}
+            />
+          ))
+        ) : (
+          <EmptyList />
+        )
+      ) : error ? (
+        <div onClick={resetError}> {error.message}</div>
       ) : (
-        <Button>añade tweet</Button>
+        ""
       )}
     </Layout>
   );

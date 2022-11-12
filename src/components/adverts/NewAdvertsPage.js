@@ -1,17 +1,25 @@
+import { useContext } from "react";
+import ContextAuth from "../auth/ContextAuth";
 import Layout from "../skeleton/Layout";
 
-const NewTweetPage = (username, isLoged) => {
-  //const [currentValue, setNewValue] = useState([]);
-  //useEffect(() => {
-  //setNewValue(currentValue);
-  //.then((currentValue) => setNewValue(currentValue));
-  //}, []);
+const NewAdvertsPage = ({ ...props }) => {
+  const {
+    isLoged,
+    handleLogout: linkEvent,
+    username,
+  } = useContext(ContextAuth);
   return (
-    <div>
-      <Layout title="new tweet" username={username} isLoged={isLoged}>
-        test new tweet
-      </Layout>
-    </div>
+    <Layout
+      title="new advert"
+      mainclassname="container"
+      sectionclassname="s12"
+      username={username}
+      isLoged={isLoged}
+      linkEvent={linkEvent}
+      {...props}
+    >
+      test new tweet
+    </Layout>
   );
 };
-export default NewTweetPage;
+export default NewAdvertsPage;

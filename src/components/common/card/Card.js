@@ -1,4 +1,6 @@
 import classNames from "classnames";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./Card.css";
 
@@ -8,40 +10,38 @@ const CustomizedCard = styled.div`
     styleProps.marginR ? styleProps.marginR : "0rem"};
 `;
 
-const Card = ({
-  colSize,
-  className,
-  title,
-  image,
-  alt,
-  linkDetail,
-  description,
-  ...props
-}) => {
+const Card = ({ colSize, className, alt, linkDetail, icon, ...props }) => {
+  const { name, price, createdAt, photo, advertags } = props;
   return (
-    <CustomizedCard
-      {...props}
-      className={classNames(`col ${colSize}`, className)}
-    >
+    <CustomizedCard className={classNames(`col ${colSize}`, className)}>
       <div className="card">
         <div className="card-image waves-effect waves-block waves-light">
-          <img className="activator" src={image} alt={alt} width="50px" />
+          <img className="activator" src={photo} alt={alt} width="50px" />
         </div>
         <div className="card-content">
           <span className="card-title activator grey-text text-darken-4">
-            {title}
-            <i className="material-icons right">Description</i>
+            {name} |
+            {createdAt ? (
+              <time dateTime={createdAt} className="active">
+                {formatDistanceToNow(new Date(createdAt))}
+              </time>
+            ) : (
+              ""
+            )}
           </span>
+          <p>{price}</p>
           <p>
-            <a href="{linkDetail}"> See detail </a>
+            {advertags.length
+              ? advertags.map((tag, idx) => <span key={idx}>{tag}</span>)
+              : ""}
+          </p>
+          <p>
+            <Link to={linkDetail}>See more</Link>
           </p>
         </div>
         <div className="card-reveal">
-          <span className="card-title grey-text text-darken-4">
-            {title}
-            <i className="material-icons right">Close</i>
-          </span>
-          <p>{description}</p>
+          <span className="card-title grey-text text-darken-4">{name}</span>
+          <p>{name}</p>
         </div>
       </div>
     </CustomizedCard>

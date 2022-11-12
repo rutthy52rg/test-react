@@ -6,17 +6,20 @@ const CustomizedMain = styled.main`
 `;
 
 const Main = ({
+  username,
+  isLoged,
+  linkEvent,
   title,
   children,
-  sectionClassName,
-  mainClassName,
+  sectionclassname,
+  mainclassname,
   ...props
 }) => {
   return (
-    <CustomizedMain {...props} className={classNames("row", mainClassName)}>
+    <CustomizedMain {...props} className={classNames("row", mainclassname)}>
       <h1 className="col s12 center">{title}</h1>
       <section
-        className={classNames("col", sectionClassName)}
+        className={classNames("col", sectionclassname)}
         // className={`col ${sectionClass}`}
       >
         {children}

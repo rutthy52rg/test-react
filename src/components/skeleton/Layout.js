@@ -6,20 +6,21 @@ import classNames from "classnames";
 const Layout = ({
   title,
   children,
-  sectionClassName,
-  mainClassName,
-  layoutClassName,
+  sectionclassname,
+  mainclassname,
+  layoutclassname,
   linkEvent,
   username,
   isLoged,
+  ...props
 }) => {
   // const [currentValue, setNewValue] = useState([]);
   // useEffect(() => {
   // }, []);
   return (
-    <div className={classNames(layoutClassName)}>
+    <div className={classNames(layoutclassname)} {...props}>
       <Header
-        className="header-flex"
+        headerlassname="header-flex"
         colorTheme="blue-grey"
         username={username}
         isLoged={isLoged}
@@ -27,8 +28,8 @@ const Layout = ({
       ></Header>
       <Main
         title={title}
-        mainClassName={classNames(mainClassName)}
-        sectionClassName={sectionClassName}
+        mainclassname={classNames(mainclassname)}
+        sectionclassname={classNames(sectionclassname)}
       >
         {children}
       </Main>

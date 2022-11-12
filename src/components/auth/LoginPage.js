@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Button from "../common/button/Button";
 import Checkbox from "../common/form/checkbox/Checkbox";
 import Form from "../common/form/Form";
@@ -7,7 +8,7 @@ import Layout from "../skeleton/Layout";
 import "./LoginPage.css";
 import { login } from "./serviceLogin";
 
-const LoginPage = ({ onLoginEvent }) => {
+const LoginPage = ({ onLoginEvent, username }) => {
   // !username y password tienen que llamarse igual que se pide en la api, porque lo que manda es un string con este nombre de variables
 
   const [email, setNewUser] = useState("");
@@ -15,6 +16,8 @@ const LoginPage = ({ onLoginEvent }) => {
   const [isCheck, setNewChecked] = useState(false);
   const [error, setNewError] = useState(null);
   const [waitignReset, setWaitingReset] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleChangeUser = (e) => {
     setNewUser(e.target.value);
@@ -29,23 +32,27 @@ const LoginPage = ({ onLoginEvent }) => {
     e.preventDefault();
     try {
       resetError();
-      setWaitingReset(false);
+      setWaitingReset(true);
       await login({ email, password });
       onLoginEvent(email, isCheck); //puede ser then(onLoginEvent) si no tienes que pasarle parametros
+      const to = location.state?.from?.pathname || "/";
+      navigate(to, { replace: true });
     } catch (error) {
       setNewError(error);
-      setWaitingReset(true);
+      setWaitingReset(false);
     }
   };
   const resetError = () => {
-    setNewError(null);
+    //mensajes de error
+    setNewError(false);
   };
 
   return (
     <Layout
       title="Login"
-      mainClassName="container auto-center"
-      sectionClassName="s12"
+      mainclassname="container auto-center"
+      sectionclassname="s12"
+      username={username}
     >
       <Form formClassName="row" onSubmit={handleSubmit}>
         <Input
@@ -82,7 +89,7 @@ const LoginPage = ({ onLoginEvent }) => {
           radius="20px"
           className="waves-effect btn-small pink accent-2"
           colSize="s12"
-          disabled={ email && password && !waitignReset ? true : false}
+          disabled={email && password && !waitignReset ? false : true}
           margin="40px 0"
         >
           Enviar
