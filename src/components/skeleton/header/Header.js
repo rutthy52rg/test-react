@@ -4,8 +4,8 @@ import ActionLink from "../../common/actionLink/ActionLink";
 import Button from "../../common/button/Button";
 import "./Header.css";
 
-const Header = ({ className, colorTheme, username, isLoged }) => {
-  console.log("header", username, isLoged);
+const Header = ({ className, colorTheme, username, isLoged, linkEvent }) => {
+  // console.log("header", username, isLoged);
   return (
     <header className={classNames("row", className)}>
       <nav className={`col s12 ${colorTheme}`}>
@@ -16,7 +16,7 @@ const Header = ({ className, colorTheme, username, isLoged }) => {
             radius="20px"
             colorTheme="#e91e63"
             className="pink btn-small"
-            onClick={(e) => console.log(e)}
+            onClick={(e) => console.log("button")}
           >
             Login
           </Button>
@@ -29,6 +29,7 @@ const Header = ({ className, colorTheme, username, isLoged }) => {
               colorTheme="#e91e63"
               haveIcon
               hoverColor="#ffffff"
+              linkEvent={linkEvent}
             />
           </div>
         )}

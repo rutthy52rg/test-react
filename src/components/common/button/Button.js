@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const CustomizedButton = styled.button`
   border-radius: ${(styleProps) => styleProps.radius};
-  margin: 0.5rem 1rem;
+  margin: ${(styleProps) => styleProps.margin};
   width: 11rem;
   opacity: ${(styleProps) => (styleProps.disabled ? 0.5 : 1)};
   border: ${(styleProps) => (styleProps.outline ? "1px" : "0px")};

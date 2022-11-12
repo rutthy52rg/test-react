@@ -25,10 +25,20 @@ const ActionLink = ({
   icon,
   haveIcon,
   iconColor,
+  linkEvent,
   ...props
 }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    linkEvent(e);
+  };
+
   return (
-    <CustomizedActionLink {...props} className={classNames("", className)}>
+    <CustomizedActionLink
+      {...props}
+      className={classNames("", className)}
+      onClick={handleClick}
+    >
       {tag}
       {haveIcon ? (
         <CustomizedIcon className="material-icons">{icon}</CustomizedIcon>

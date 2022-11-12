@@ -9,6 +9,7 @@ const Layout = ({
   sectionClassName,
   mainClassName,
   layoutClassName,
+  linkEvent,
   username,
   isLoged,
 }) => {
@@ -22,6 +23,7 @@ const Layout = ({
         colorTheme="blue-grey"
         username={username}
         isLoged={isLoged}
+        linkEvent={linkEvent}
       ></Header>
       <Main
         title={title}

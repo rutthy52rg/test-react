@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./App.css";
+import AdvertsPage from "./components/adverts/AdvertsPage";
 import LoginPage from "./components/auth/LoginPage";
-import TweetsPage from "./components/tweets/tweetsPage";
-function App() {
-  const [isLoged, setLogedState] = useState(false);
+import Storage from "./utils/Storage";
+function App({ initialLoged, isCheck }) {
+  const [isLoged, setLogedState] = useState(initialLoged);
   const [username, setUsername] = useState("");
 
   // ? onLoginEvent es la prop que viene del componente LoginPage que pasamos por props. A esta prop le pasamos por valor el evento hadleEvent que a su vez ejecuta la función setLoginState para cambiar useState
@@ -11,11 +12,19 @@ function App() {
     setLogedState(true);
     setUsername(username);
   };
-  console.log(isLoged, username);
+  const handleClick = (e) => {
+    setLogedState(false);
+    Storage.removeStorage("auth");
+  };
+
   return (
     <div className="App">
       {isLoged ? (
-        <TweetsPage isLoged={isLoged} username={username}></TweetsPage>
+        <AdvertsPage
+          isLoged={isLoged}
+          username={username}
+          linkEvent={handleClick}
+        ></AdvertsPage>
       ) : (
         <LoginPage onLoginEvent={handleEvent}></LoginPage>
       )}

@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Storage from "../../utils/Storage";
 import Button from "../common/button/Button";
 import Card from "../common/card/Card";
 import Layout from "../skeleton/Layout";
-import { getLatestTweets } from "./service";
-const TweetsPage = ({ username, isLoged }) => {
-  const [tweets, setTweets] = useState([]);
-  useEffect(() => {
-    getLatestTweets().then((tweets) => setTweets(tweets));
-  }, []);
+import { getLatestAdverts } from "./service";
+
+const AdvertsPage = ({ username, isLoged, linkEvent }) => {
+  const [adverts, setAdverts] = useState([]);
+  const accessToken = Storage.getStorage("auth");
+  console.log(accessToken);
+
+  getLatestAdverts().then(() => setAdverts(adverts));
 
   return (
     <Layout
@@ -16,12 +19,13 @@ const TweetsPage = ({ username, isLoged }) => {
       sectionSize="s12"
       username={username}
       isLoged={isLoged}
+      linkEvent={linkEvent}
     >
-      {tweets.length ? (
-        tweets.map((ele) => (
+      {adverts.length ? (
+        adverts.map((ele) => (
           <Card
             key={ele.id}
-            description={ele.content}
+            description={ele.name}
             colSize="s3"
             alt="imagen"
             image="https://materializecss.com/images/office.jpg"
@@ -33,4 +37,4 @@ const TweetsPage = ({ username, isLoged }) => {
     </Layout>
   );
 };
-export default TweetsPage;
+export default AdvertsPage;

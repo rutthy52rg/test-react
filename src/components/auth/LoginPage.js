@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../common/button/Button";
+import Checkbox from "../common/form/checkbox/Checkbox";
 import Form from "../common/form/Form";
 import Input from "../common/form/input/Input";
 import Layout from "../skeleton/Layout";
@@ -9,18 +10,35 @@ import { login } from "./serviceLogin";
 const LoginPage = ({ onLoginEvent }) => {
   // !username y password tienen que llamarse igual que se pide en la api, porque lo que manda es un string con este nombre de variables
 
-  const [username, setNewUser] = useState("");
+  const [email, setNewUser] = useState("");
   const [password, setNewPass] = useState("");
-  const handleChangeUser = (event) => {
-    setNewUser(event.target.value);
+  const [isCheck, setNewChecked] = useState(false);
+  const [error, setNewError] = useState(null);
+  const [waitignReset, setWaitingReset] = useState(false);
+
+  const handleChangeUser = (e) => {
+    setNewUser(e.target.value);
   };
-  const handleChangePass = (event) => {
-    setNewPass(event.target.value);
+  const handleChangePass = (e) => {
+    setNewPass(e.target.value);
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log(username, password);
-    login({ username, password }).then(() => onLoginEvent(username)); //puede ser then(onLoginEvent) si no tienes que pasarle parametros
+  const handleChangeChecked = (e) => {
+    setNewChecked(e.target.checked);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      resetError();
+      setWaitingReset(false);
+      await login({ email, password });
+      onLoginEvent(email, isCheck); //puede ser then(onLoginEvent) si no tienes que pasarle parametros
+    } catch (error) {
+      setNewError(error);
+      setWaitingReset(true);
+    }
+  };
+  const resetError = () => {
+    setNewError(null);
   };
 
   return (
@@ -32,36 +50,45 @@ const LoginPage = ({ onLoginEvent }) => {
       <Form formClassName="row" onSubmit={handleSubmit}>
         <Input
           type="text"
-          id="user"
-          name="user"
-          label="User"
+          id="email"
+          name="email"
+          label="Email"
           colSize="s12"
-          className="validate"
           required
           onChange={handleChangeUser}
-          value={username}
+          value={email}
         />
         <Input
           type="password"
           name="password"
           label="Password"
           colSize="s12"
-          className="validate"
           required
           onChange={handleChangePass}
           value={password}
         />
+        <Checkbox
+          type="checkbox"
+          name="session"
+          id="session"
+          label="Session"
+          colSize="s12"
+          ckecked={isCheck}
+          onChange={handleChangeChecked}
+          inputMargin="200px"
+        />
         <Button
-          // onClick={handleClick}
           type="submit"
           radius="20px"
           className="waves-effect btn-small pink accent-2"
           colSize="s12"
-          disabled={!(username && password) ? true : false}
+          disabled={ email && password && !waitignReset ? true : false}
+          margin="40px 0"
         >
           Enviar
         </Button>
       </Form>
+      {error ? <div onClick={resetError}> {error.message}</div> : ""}
     </Layout>
   );
 };

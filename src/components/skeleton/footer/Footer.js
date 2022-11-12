@@ -4,11 +4,6 @@ import styled from "styled-components";
 const CustomizedFooter = styled.footer`
   color: ${(styleProps) => styleProps.radius};
 `;
-const componentProps = {};
-const props = (componentProps, styleProps) => ({
-  ...componentProps,
-  ...styleProps,
-});
 
 const Footer = ({ className, colorTheme, ...props }) => {
   return (
