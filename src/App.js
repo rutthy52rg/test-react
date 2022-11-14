@@ -18,7 +18,7 @@ function App({ initialLoged }) {
       const currentUser = await getUser();
       setUsername(currentUser.username);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   // ? onLoginEvent es la prop que viene del componente LoginPage que pasamos por props. A esta prop le pasamos por valor el evento hadleEvent que a su vez ejecuta la función setLoginState para cambiar useState
@@ -37,6 +37,7 @@ function App({ initialLoged }) {
     }
   }, [username, isLoged]);
 
+  // console.log(isLoged);
   return (
     <div className="App">
       <ContextAuthProvider
@@ -80,7 +81,7 @@ function App({ initialLoged }) {
           <Route
             path="/"
             element={
-              isLoged ? <Navigate to="/advertst" /> : <Navigate to="/login" />
+              isLoged ? <Navigate to="/adverts" /> : <Navigate to="/login" />
             }
           />
           <Route path="/404" element={<div> 404 | not found </div>} />

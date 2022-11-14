@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styled from "styled-components";
+import "./button.css";
 
 const CustomizedButton = styled.button`
   border-radius: ${(styleProps) => styleProps.radius};

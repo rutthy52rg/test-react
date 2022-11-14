@@ -1,32 +1,41 @@
-
-.tweetsPage{
-    background-color: red;
+.tweetsPage {
+  background-color: red;
 }
-.auto-center-x{
-    float: initial !important;
-    max-width: max-content;
-    margin: 0px auto;
+.auto-center-x {
+  float: initial !important;
+  max-width: max-content;
+  margin: 0px auto;
 }
 .auto-center {
-    float: initial !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: max-content;
-    max-height: max-content;
+  float: initial !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  max-width: max-content;
+  max-height: max-content;
 }
+.auto-between {
+  float: initial !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  min-width: 100%;
+  max-height: max-content;
+}
+
 nav i,
 nav [class^="mdi-"],
 nav [class*="mdi-"],
 nav i.material-icons {
-    display: block;
-    font-size: 24px;
-    height: 56px;
-    line-height: initial;
+  display: block;
+  font-size: 24px;
+  height: 56px;
+  line-height: initial;
 }
-.flex-valign-center{
-    display: flex;
-    align-items: center;
-    gap:10px;
+.flex-valign-center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

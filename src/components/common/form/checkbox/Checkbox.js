@@ -3,19 +3,19 @@ import styled from "styled-components";
 import "./checkbox.css";
 
 const CustomizedCheckbox = styled.input`
-  margin: ${(styleProps) => styleProps.inputMargin};
+  margin: ${(styleProps) => styleProps.inputmargin};
 `;
 
 const Checkbox = ({
   labelClassName,
   inputClassName,
   label,
-  colSize,
+  colsize,
   isCheck,
   ...props
 }) => {
   return (
-    <div className={`input-field col ${colSize}`}>
+    <div className={`input-field col ${colsize}`}>
       <label className={classNames("", labelClassName)}>
         <CustomizedCheckbox
           className={classNames("filled-in", inputClassName)}

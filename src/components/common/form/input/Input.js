@@ -7,9 +7,9 @@ const CustomizedInput = styled.input`
   margin: ${(styleProps) => styleProps.margin};
 `;
 
-const Input = ({ className, label, colSize, ...props }) => {
+const Input = ({ className, label, colsize, ...props }) => {
   return (
-    <div className={`input-field col ${colSize}`}>
+    <div className={`input-field col ${colsize}`} {...props}>
       <CustomizedInput {...props} className={classNames("", className)} />
       <label htmlFor={label}>{label}</label>
     </div>
