@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Link, Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import AdvertDetailPage from "./components/adverts/AdvertDetailPage";
-import AdvertsPage from "./components/adverts/AdvertsPage";
+import AdvertPage from "./components/adverts/AdvertsPage";
 import NewAdvertsPage from "./components/adverts/NewAdvertsPage";
 import { ContextAuthProvider } from "./components/auth/ContextAuth";
 import LoginPage from "./components/auth/LoginPage";
 import RequiredAuth from "./components/auth/RequiredAuth";
 import { getUser, Logout } from "./components/auth/serviceLogin";
+import Button from "./components/common/button/Button";
 
 function App({ initialLoged }) {
   const [isLoged, setLogedState] = useState(initialLoged);
@@ -57,9 +58,22 @@ function App({ initialLoged }) {
           <Route
             path="/adverts"
             element={
-              <RequiredAuth isLoged={isLoged}>
-                <AdvertsPage></AdvertsPage>
-              </RequiredAuth>
+              isLoged ? (
+                <RequiredAuth isLoged={isLoged}>
+                  <AdvertPage></AdvertPage>
+                </RequiredAuth>
+              ) : (
+                <div className="login-alert">
+                  <h1>Do login to see all adverts</h1>
+                  <Button
+                    as={Link}
+                    to="/login"
+                    className="btn-large pink wave-effect wave-light"
+                  >
+                    Login
+                  </Button>
+                </div>
+              )
             }
           />
           <Route
@@ -81,7 +95,20 @@ function App({ initialLoged }) {
           <Route
             path="/"
             element={
-              isLoged ? <Navigate to="/adverts" /> : <Navigate to="/login" />
+              isLoged ? (
+                <Navigate to="/adverts" />
+              ) : (
+                <div className="login-alert">
+                  <h1>Do login to see all adverts</h1>
+                  <Button
+                    as={Link}
+                    to="/login"
+                    className="btn-large pink wave-effect wave-light"
+                  >
+                    Login
+                  </Button>
+                </div>
+              )
             }
           />
           <Route path="/404" element={<div> 404 | not found </div>} />
