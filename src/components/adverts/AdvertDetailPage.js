@@ -1,61 +1,51 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../auth/ContextAuth";
-import Card from "../common/card/Card";
-import Layout from "../skeleton/Layout";
-import { getAdvertDetail } from "./service";
+import PageContainerOutlet from "../Layout/PageContainerOutlet";
+import { getAdvert } from "./service";
 
 const AdvertDetailPage = ({ ...props }) => {
-  const { isLoged, handleLogout: linkEvent, username } = useAuth();
-  const [currentAdvert, setCurrentAdvert] = useState({});
+  const [advert, setAdvert] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  //avisar cuando se desmonta el componente
+  // const unmountedRef = useRef(false);
 
   useEffect(() => {
-    getAdvertDetail(id)
-      .then((resp) => setCurrentAdvert(resp))
-      .catch((err) => {
-        if (err.status === 404) {
-          navigate("404");
-        }
-      });
+    let isMounted = true;
+    if (isMounted) {
+      getAdvert(id)
+        .then((advert) => {
+          // if (unmountedRef.current) {
+          //   //no setees el estado si el componente se ha desmontado
+          //   return;
+          // }
+          setAdvert(advert);
+        })
+        .catch((error) => {
+          // console.log("error", error);
+          if (error.status === 404) {
+            const to = "/404";
+            navigate(to);
+          }
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
   }, [id, navigate]);
-  const currentObjCard = {
-    image: currentAdvert.photo,
-    booleantag: currentAdvert.sale,
-    booleanlabeltrue: "sale",
-    booleanlabelfalse: "buy",
-    title: currentAdvert.name,
-    date: currentAdvert.createdAt,
-    alt: currentAdvert.name,
-    icon1: "more_vert",
-    icon2: "close",
-    text1: currentAdvert.price,
-    textarray: currentAdvert.tags,
-    link1: "/adverts",
-    labellink1: "Back to List Adverts",
-    link2: "/delete",
-    labellink2: "Delete",
-  };
-  console.log(currentObjCard);
+  // useEffect(() => {
+  //   return () => {
+  //     unmountedRef.current = true;
+  //     //componente desmontado pasamos a true
+  //   };
+  // }, []);
+
   return (
-    <Layout
-      title="advert detail"
-      mainclassname="container"
-      sectionclassname="s12"
-      username={username}
-      isLoged={isLoged}
-      linkEvent={linkEvent}
-      {...props}
-    >
-      <Card
-        {...currentObjCard}
-        colsize="s12"
-        imageHeight="600px"
-        imageAlign="center"
-        iconSize="600px"
-      />
-    </Layout>
+    <PageContainerOutlet title="detalle de anuncoio" {...props}>
+      <p>
+        advert id : {id} {JSON.stringify(advert)}
+      </p>
+    </PageContainerOutlet>
   );
 };
 export default AdvertDetailPage;

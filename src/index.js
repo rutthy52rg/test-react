@@ -1,22 +1,27 @@
-import "materialize-css/dist/css/materialize.min.css";
-import "materialize-css/dist/js/materialize.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
+// import $ from "jquery";
+// import Popper from "popper.js";
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { setAuthorizationHeader } from "./api/client";
 import App from "./App";
+import { AuthProvider } from "./components/auth/context";
 import "./index.css";
-import Storage from "./utils/Storage";
+import storage from "./utils/localStorage";
 
-const accessToken = Storage.getStorage("auth");
+const accessToken = storage.get("auth");
 setAuthorizationHeader(accessToken);
-console.log("initialLoged", !!accessToken);
+// console.log($, Popper);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Router>
-      <App initialLoged={!!accessToken} />
-    </Router>
-  </React.StrictMode>
+  <BrowserRouter>
+    <React.StrictMode>
+      <AuthProvider isInitallyLogged={!!accessToken}>
+        <App />
+      </AuthProvider>
+    </React.StrictMode>
+  </BrowserRouter>
 );

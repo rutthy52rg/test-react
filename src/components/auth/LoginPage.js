@@ -1,104 +1,126 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../common/button/Button";
-import Checkbox from "../common/form/checkbox/Checkbox";
-import Form from "../common/form/Form";
-import Input from "../common/form/input/Input";
-import Layout from "../skeleton/Layout";
-import { useAuth } from "./ContextAuth";
-import "./LoginPage.css";
-import { login } from "./serviceLogin";
+import Button from "../commons/Button";
+import Checkbox from "../commons/Checkbox";
+import FormField from "../commons/FormField";
+import InputFile from "../commons/InputFile";
+import Select from "../commons/Select";
+import { useAuth } from "./context";
+import { login } from "./service";
 
-const LoginPage = ({ onLoginEvent }) => {
-  // !username y password tienen que llamarse igual que se pide en la api, porque lo que manda es un string con este nombre de variables
-  const { username } = useAuth();
-  const [email, setNewUser] = useState("");
-  const [password, setNewPass] = useState("");
-  const [isCheck, setNewChecked] = useState(false);
-  const [error, setNewError] = useState(null);
-  const [waitignReset, setWaitingReset] = useState(false);
+const LoginPage = ({ ...props }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [savesession, setSaveSession] = useState(false);
+  const [selectedTransport, setSelectedTransport] = useState("");
+  const [error, setError] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
+  const { handleLogin: onLogin } = useAuth();
+  //location de loginpage que al pasar por la url de navigate desde requireAuth la propiedad state con el pathname desde donde hemos accedido a login
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleChangeUser = (e) => {
-    setNewUser(e.target.value);
+  const handleChangeUsername = (e) => {
+    e.preventDefault();
+    // console.log("datos", username);
+    setEmail(e.target.value);
   };
-  const handleChangePass = (e) => {
-    setNewPass(e.target.value);
+  const handleChangeUsePassword = (e) => {
+    // console.log("datos", password);
+    setPassword(e.target.value);
   };
-  const handleChangeChecked = (e) => {
-    setNewChecked(e.target.checked);
-    console.log("login check", isCheck);
+  const handleChangeSaveSession = (e) => {
+    setSaveSession(e.target.checked);
   };
+  const handleChangeTransport = (e) => {
+    setSelectedTransport(e.target.value);
+  };
+  const resetError = () => {
+    setError(null);
+    setIsFetching(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       resetError();
-      setWaitingReset(true);
-      await login({ email, password });
-      onLoginEvent(email, isCheck); //puede ser then(onLoginEvent) si no tienes que pasarle parametros
+      setIsFetching(true);
+      await login({ email, password, savesession });
+      onLogin();
+      //si location tiene state y si tiene from se envia a pathname si no se envia a home
       const to = location.state?.from?.pathname || "/";
+      //replace se usa para eleminar la ultima url accedida, esto es si vengo de login no vuelvo a login otra vez (ultima url (login) elininada, se iria a la anterior)
       navigate(to, { replace: true });
     } catch (error) {
-      setNewError(error);
-      setWaitingReset(false);
+      setError(error);
     }
-  };
-  const resetError = () => {
-    //mensajes de error
-    setNewError(false);
+
+    //TODO guardar token en localstorage
   };
 
+  const arrOpt = ["moto", "coche", "camion"];
+  const isDisabled = useMemo(() => {
+    // console.log("enviando", isFetching);
+    return !(email && password && !isFetching);
+  }, [email, password, isFetching]);
+
   return (
-    <Layout
-      title="Login"
-      mainclassname="container auto-center"
-      sectionclassname="s12"
-      username={username}
-    >
-      <Form formClassName="row" onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          id="email"
-          name="email"
-          label="Email"
-          colsize="s12"
-          required
-          onChange={handleChangeUser}
-          value={email}
-        />
-        <Input
-          type="password"
-          name="password"
-          label="Password"
-          colsize="s12"
-          required
-          onChange={handleChangePass}
-          value={password}
-        />
-        <Checkbox
-          type="checkbox"
-          name="session"
-          id="session"
-          label="Session"
-          colsize="s12"
-          checked={isCheck}
-          onChange={handleChangeChecked}
-          inputMargin="200px"
-        />
-        <Button
-          type="submit"
-          radius="20px"
-          className="waves-effect btn-small pink accent-2"
-          colsize="s12"
-          disabled={email && password && !waitignReset ? false : true}
-          margin="40px 0"
-        >
-          Enviar
-        </Button>
-      </Form>
-      {error ? <div onClick={resetError}> {error.message}</div> : ""}
-    </Layout>
+    <div className="container mt-5">
+      <div className="row">
+        <div className="col text-center">
+          <h1>Login Page</h1>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <form onSubmit={handleSubmit}>
+            <FormField
+              label="email"
+              name="email"
+              type="text"
+              onChange={handleChangeUsername}
+              value={email}
+            />
+            <FormField
+              label="password"
+              name="password"
+              type="password"
+              onChange={handleChangeUsePassword}
+              value={password}
+            />
+            <Checkbox
+              tag="Guardar sesión"
+              onChange={handleChangeSaveSession}
+              value={savesession}
+            />
+            <InputFile
+              label="inserta foto"
+              onChange={(e) => console.log(e.target.files)}
+            />
+            <Select
+              value={selectedTransport}
+              label="selecciona transporte"
+              options={arrOpt}
+              onChange={handleChangeTransport}
+            />
+            <Button type="submit" value="Enviar" disabled={isDisabled}>
+              Log in
+            </Button>
+          </form>
+        </div>
+      </div>
+      {error ? (
+        <div className="row mt-5" onClick={resetError}>
+          <div className="col">
+            <div className="alert alert-danger" role="alert">
+              {error.message}
+            </div>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </div>
   );
 };
 export default LoginPage;
