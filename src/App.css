@@ -40,10 +40,13 @@ nav i.material-icons {
   gap: 10px;
 }
 .login-alert {
-  width: 100vw;
-  height: 80vh;
-  display: flex;
+display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
+  background: pink;
+  padding: 5px 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+  color: red;
 }

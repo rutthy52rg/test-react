@@ -5,7 +5,6 @@ import "./button.css";
 const CustomizedButton = styled.button`
   border-radius: ${(styleProps) => styleProps.radius};
   margin: ${(styleProps) => styleProps.margin};
-  width: 11rem;
   opacity: ${(styleProps) => (styleProps.disabled ? 0.5 : 1)};
   border: ${(styleProps) => (styleProps.outline ? "1px" : "0px")};
   border-color: ${(styleProps) => styleProps.colortheme};

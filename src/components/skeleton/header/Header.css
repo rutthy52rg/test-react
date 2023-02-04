@@ -6,23 +6,30 @@
 .active {
     color: #e91e63
 } 
+nav{
+    background-color: #4b626d;
+}
 .nav-list {
     flex-grow: 4;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     gap: 15px;
     padding: 0 50px;
     font-weight: bolder;
-    align-items: center;
-
-    
+    align-items: flex-end;
 }
 .nav-list > a:hover{
     text-decoration: underline;;
 }
 .user-info{
+   display: flex;
    background-color: #4b626d;
    padding: 0 10px;
+   justify-content: flex-end;
+}
+.user-info:hover{
+    cursor: pointer;
+    background-color: #e91e63;
 }
 
 nav.col {

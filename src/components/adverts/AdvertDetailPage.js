@@ -1,61 +1,64 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuth } from "../auth/ContextAuth";
-import Card from "../common/card/Card";
-import Layout from "../skeleton/Layout";
-import { getAdvertDetail } from "./service";
+import ConfirmButton from "../commons/alerts/confirmButton";
+import PageContainerOutlet from "../skeleton/PageContainerOutlet";
+import { deleteAdvert, getAdvertDetail } from "./service";
 
-const AdvertDetailPage = ({ ...props }) => {
-  const { isLoged, handleLogout: linkEvent, username } = useAuth();
-  const [currentAdvert, setCurrentAdvert] = useState({});
+const AdvertDetailPage = ({
+  name,
+  sale,
+  price,
+  tags,
+  photo,
+  confirm,
+  isLoading,
+  ...props
+}) => {
+  const [advert, setAdvert] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getAdvertDetail(id)
-      .then((resp) => setCurrentAdvert(resp))
-      .catch((err) => {
-        if (err.status === 404) {
-          navigate("404");
-        }
-      });
-  }, [id, navigate]);
-  const currentObjCard = {
-    image: currentAdvert.photo,
-    booleantag: currentAdvert.sale,
-    booleanlabeltrue: "sale",
-    booleanlabelfalse: "buy",
-    title: currentAdvert.name,
-    date: currentAdvert.createdAt,
-    alt: currentAdvert.name,
-    icon1: "more_vert",
-    icon2: "close",
-    text1: currentAdvert.price,
-    textarray: currentAdvert.tags,
-    link1: "/adverts",
-    labellink1: "Back to List Adverts",
-    link2: "/delete",
-    labellink2: "Delete",
+  const onDelete = async () => {
+    try {
+      await deleteAdvert(id).then(navigate("/adverts"));
+    } catch (error) {
+      console.log(error);
+    }
   };
-  console.log(currentObjCard);
+
+  useEffect(() => {
+    let isMounted = true;
+    if (isMounted) {
+      getAdvertDetail(id)
+        .then((advert) => {
+          setAdvert(advert);
+        })
+        .catch((error) => {
+          if (error.status === 404) {
+            const to = "/404";
+            navigate(to);
+          }
+        });
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [id, navigate]);
+
   return (
-    <Layout
-      title="advert detail"
-      mainclassname="container"
-      sectionclassname="s12"
-      username={username}
-      isLoged={isLoged}
-      linkEvent={linkEvent}
-      {...props}
-    >
-      <Card
-        {...currentObjCard}
-        colsize="s12"
-        imageHeight="600px"
-        imageAlign="center"
-        iconSize="600px"
-      />
-    </Layout>
+    <PageContainerOutlet title="detalle de anuncoio" {...props}>
+      <p>
+        advert id : {id} {JSON.stringify(advert)}
+      </p>
+      <ConfirmButton
+        confirmation="Are you sure?"
+        doTask={onDelete}
+        disabled={isLoading}
+        message="¿Estas seguro de eliminar?"
+      >
+        Delete
+      </ConfirmButton>
+    </PageContainerOutlet>
   );
 };
 export default AdvertDetailPage;
