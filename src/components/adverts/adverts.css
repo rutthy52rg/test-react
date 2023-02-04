@@ -1,0 +1,78 @@
+.advertsPage {
+   background-color: blue;
+}
+
+.empty {
+   background-color: red;
+}
+.collection{
+border-left: none;
+border-right: none;
+}
+.collection-item{
+   display: flex !important;
+   flex-direction: row;
+   align-items: center;
+   justify-content: space-between;
+   width: 100%;
+   
+}
+
+.collection-item > .container-data, .collection-item > .container-actions {
+   display: flex;
+   gap: 25px;
+   align-items: center;
+   justify-content: flex-start;
+}
+
+.collection-item .container-photo {
+   height: 50px;
+   width: 50px;
+   background: #f5f5f5;
+   overflow: hidden;
+   
+}
+
+.photo {
+   width: 100%;
+   height: auto;
+}
+.name {
+   font-weight: bolder;
+}
+.tags {
+   font-size: small;
+   font-style: italic;
+}
+
+.badge.sale {
+   background-color: #d4e423;
+   border-radius: 2px;
+   float: left;
+   color: #000;
+}
+
+.badge.buy {
+   background-color: #e4bd23;
+   border-radius: 2px;
+   float: left;
+}
+.advert-content-detail  {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   border-top: 1px solid #e0e0e0;
+   border-bottom: 1px solid #e0e0e0;
+   gap: 50px;;
+}
+.advert-content-detail>.collection-item:hover{
+   cursor: initial;
+}
+.advert-content-detail button{
+   background-color: red;
+   padding: 8px 20px;
+   color: #fff;
+}
+.advert-content-detail button:hover{
+   background-color: #4b626d;
+}

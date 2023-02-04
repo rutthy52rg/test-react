@@ -1,16 +1,8 @@
 import classNames from "classnames";
-import styled from "styled-components";
 
-const CustomizedFooter = styled.footer`
-  color: ${(styleProps) => styleProps.radius};
-`;
-
-const Footer = ({ className, colorTheme, ...props }) => {
+const Footer = ({ className, ...props }) => {
   return (
-    <CustomizedFooter
-      className={classNames("page-footer", colorTheme, className)}
-      {...props}
-    >
+    <footer className={classNames("page-footer", className)} {...props}>
       <div className="container">
         <div className="row">
           <div className="col l6 s12">
@@ -54,7 +46,7 @@ const Footer = ({ className, colorTheme, ...props }) => {
           </a>
         </div>
       </div>
-    </CustomizedFooter>
+    </footer>
   );
 };
 

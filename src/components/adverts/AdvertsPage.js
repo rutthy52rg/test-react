@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "../adverts/AdvertsPage.module.css";
 import Button from "../commons/button/Button";
 import PageContainerOutlet from "../skeleton/PageContainerOutlet";
 import Advert from "./Advert";
@@ -23,28 +22,21 @@ export const AdvertsPage = ({ ...props }) => {
     getLatestAdverts()
       .then((adverts) => {
         setAdverts(adverts);
-        setAdverts([]);
       })
       .catch((error) => console.log(error));
   }, []);
 
   return (
     <PageContainerOutlet title="Listado de anuncios" {...props}>
-      <div className={!adverts.length ? styles.empty : styles.list}>
-        {adverts.length > 0 ? (
-          <ul>
-            {adverts.map((ele) => (
-              <li key={ele.id}>
-                <Link to={`/adverts/${ele.id}`}>
-                  <Advert {...ele} />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <EmptyList />
-        )}
-      </div>
+      {adverts.length > 0 ? (
+        <div className="container collection">
+          {adverts.map((ele) => (
+            <Advert {...ele} url={`/adverts/${ele.id}`} key={ele.id} />
+          ))}
+        </div>
+      ) : (
+        <EmptyList />
+      )}
     </PageContainerOutlet>
   );
 };

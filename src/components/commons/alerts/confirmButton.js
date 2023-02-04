@@ -16,7 +16,7 @@ const ConfirmButton = ({ message, doTask, ...props }) => {
 
   return (
     <Fragment>
-      <Button onClick={handleClick} {...props} />
+      <Button onClick={handleClick} {...props} className="confirm-button" />
       {showConfirmation ? (
         <div className="container">
           <div className="confirmation-box">

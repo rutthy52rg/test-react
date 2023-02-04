@@ -1,10 +1,24 @@
-import classNames from "classnames";
+import { Link } from "react-router-dom";
+import "./adverts.css";
 
-const Advert = ({ className, name, price, photo, tags, id, sale }) => {
+const Advert = ({ name, price, photo, tags, sale, url }) => {
   return (
-    <div className={classNames("card mb-3", className)}>
-      <div className="row">name, price, photo,tags, id, sale</div>
-    </div>
+    <Link to={url} className="collection-item">
+      <div className="container-data">
+        <p className="container-photo">
+          {photo ? <img src={photo} className="photo" alt={name} /> : ""}
+        </p>
+        <p className="name">{name}</p>
+
+        <p className="tags">{tags}</p>
+      </div>
+      <div className="container-actions">
+        <p>{price} €</p>
+        <span className={`badge ${sale ? "sale" : "buy"}`}>
+          {sale ? "Venta" : "Compra"}
+        </span>
+      </div>
+    </Link>
   );
 };
 export default Advert;

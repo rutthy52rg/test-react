@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ConfirmButton from "../commons/alerts/confirmButton";
 import PageContainerOutlet from "../skeleton/PageContainerOutlet";
+import Advert from "./Advert";
+import "./adverts.css";
 import { deleteAdvert, getAdvertDetail } from "./service";
 
 const AdvertDetailPage = ({
@@ -47,17 +49,17 @@ const AdvertDetailPage = ({
 
   return (
     <PageContainerOutlet title="detalle de anuncoio" {...props}>
-      <p>
-        advert id : {id} {JSON.stringify(advert)}
-      </p>
-      <ConfirmButton
-        confirmation="Are you sure?"
-        doTask={onDelete}
-        disabled={isLoading}
-        message="¿Estas seguro de eliminar?"
-      >
-        Delete
-      </ConfirmButton>
+      <div className="container advert-content-detail">
+        <Advert {...advert} />
+        <ConfirmButton
+          confirmation="Are you sure?"
+          doTask={onDelete}
+          disabled={isLoading}
+          message="¿Estas seguro de eliminar?"
+        >
+          Delete
+        </ConfirmButton>
+      </div>
     </PageContainerOutlet>
   );
 };

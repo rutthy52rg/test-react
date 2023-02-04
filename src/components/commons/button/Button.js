@@ -7,14 +7,7 @@ const CustomizedButton = styled.button`
   margin: ${(styleProps) => styleProps.margin};
   opacity: ${(styleProps) => (styleProps.disabled ? 0.5 : 1)};
   border: ${(styleProps) => (styleProps.outline ? "1px" : "0px")};
-  border-color: ${(styleProps) => styleProps.colortheme};
-  border-style: solid;
-  background-color: ${(styleProps) =>
-    styleProps.outline ? "transparent" : styleProps.colortheme};
-  &:hover {
-    background-color: ${(styleProps) =>
-      styleProps.outline ? styleProps.colortheme : "inherit"};
-  }
+  border-style: none;
 `;
 
 const Button = ({ className, ...props }) => {

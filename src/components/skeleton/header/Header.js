@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { ReactComponent as Icon } from "../../../assets/images/twitter-logo.svg";
 import { useAuth } from "../../auth/ContextAuth";
 import { logout } from "../../auth/service";
+import "../../commons/alerts/alertPages.css";
 import ConfirmButton from "../../commons/alerts/confirmButton";
 import Button from "../../commons/button/Button";
 import "./Header.css";
@@ -45,14 +46,12 @@ const Header = ({ headerlassname, colorTheme }) => {
             </ul>
             <div className="user-info">
               {!isLogged ? (
-                <Button as={Link} to="/login">
-                  Login
-                </Button>
+                <Button to="/login">Login</Button>
               ) : (
                 <ConfirmButton
                   as={Link}
                   doTask={handleLogout}
-                  message="¿Estas seguro de eliminar?"
+                  message="¿Estas seguro de quieres salir?"
                 >
                   Logout
                 </ConfirmButton>

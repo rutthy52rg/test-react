@@ -28,7 +28,6 @@ const NewAdvertPage = ({ ...props }) => {
         value.push(options[i].value);
       }
     }
-    // console.log("value", value);
     setTags(value);
   };
 
@@ -84,7 +83,8 @@ const NewAdvertPage = ({ ...props }) => {
     return !!(name && validPrice(price) && validTags(tags));
   }, [name, price, tags]);
   return (
-    <Form formClassName="row" onSubmit={handleSubmit}>
+    <Form formClassName="row container" onSubmit={handleSubmit}>
+      <h1>Alta de anuncio</h1>
       <Input
         type="text"
         id="name"
@@ -132,11 +132,10 @@ const NewAdvertPage = ({ ...props }) => {
       />
       <Button
         type="submit"
-        radius="20px"
-        className="waves-effect btn-small pink accent-2"
+        className="waves-effect btn-large right"
         colsize="s12"
         disabled={!isDisabled}
-        margin="40px 0"
+        margin="50px 0"
       >
         Enviar
       </Button>
