@@ -1,4 +1,4 @@
-# Getting Started with Create React App => Ruth González first project React :)
+# Getting Started with Create React App => Ruth González segunda entrega del proyecto fundamentos React
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
