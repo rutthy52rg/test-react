@@ -9,7 +9,6 @@ import NotFoundPage from "./components/commons/alerts/NotFoundPage";
 import Layout from "./components/skeleton/Layout";
 
 const LoginPage = lazy(() => import("./components/auth/LoginPage"));
-
 function App() {
   return (
     <Suspense fallback="loading page...">
@@ -29,7 +28,7 @@ function App() {
             <Route path=":id" element={<AdvertDetailPage />} />
             <Route path="new" element={<NewAdvertPage />} />x
           </Route>
-          <Route path="/404" element={<NotFoundPage message="404" />} />
+          <Route path="/404" element={<NotFoundPage />} />
           <Route path="/*" element={<Navigate to="/404" />} />
         </Routes>
       </div>

@@ -27,20 +27,24 @@ const AdvertDetailPage = ({
       console.log(error);
     }
   };
-
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      getAdvertDetail(id)
-        .then((advert) => {
+      const execute = async () => {
+        try {
+          const advert = await getAdvertDetail(id);
           setAdvert(advert);
-        })
-        .catch((error) => {
-          if (error.status === 404) {
-            const to = "/404";
-            navigate(to);
+        } catch (error) {
+          if (error.statusCode === 401) {
+            navigate("/login");
           }
-        });
+          if (error.statusCode === 404) {
+            navigate("/404", { state: { message: error.statusCode } });
+          }
+          navigate("/404", { state: { message: error } });
+        }
+      };
+      execute();
     }
     return () => {
       isMounted = false;

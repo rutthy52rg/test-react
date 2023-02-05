@@ -47,9 +47,7 @@ const LoginPage = ({ ...props }) => {
       setIsFetching(true);
       await login({ email, password, savesession });
       onLogin();
-      //si location tiene state y si tiene from se envia a pathname si no se envia a home
       const to = location.state?.from?.pathname || "/";
-      //replace se usa para eleminar la ultima url accedida, esto es si vengo de login no vuelvo a login otra vez (ultima url (login) elininada, se iria a la anterior)
       navigate(to, { replace: true });
     } catch (error) {
       setError(error);
@@ -65,19 +63,25 @@ const LoginPage = ({ ...props }) => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col text-center">
-          <h1>Login Page</h1>
+        <div className="col s12 text-center">
+          <h1
+            className="text-center"
+            style={{ margin: "0px auto", textAlign: "center" }}
+          >
+            Login Page
+          </h1>
         </div>
       </div>
-      <div className="row">
-        <div className="col">
-          <form onSubmit={handleSubmit}>
+      <div className="row tex-center">
+        <div>
+          <form onSubmit={handleSubmit} className="row container">
             <Input
               label="email"
               name="email"
               type="text"
               onChange={handleChangeEmail}
               value={email}
+              colsize="s12"
             />
             <Input
               label="password"
@@ -85,21 +89,29 @@ const LoginPage = ({ ...props }) => {
               type="password"
               onChange={handleChangeUsePassword}
               value={password}
+              colsize="s12"
             />
             <Checkbox
-              tag="Guardar sesión"
+              label="Guardar sesión"
               onChange={handleChangeSaveSession}
               value={savesession}
+              colsize="s12"
             />
-            <Button type="submit" value="Enviar" disabled={isDisabled}>
+            <Button
+              type="submit"
+              value="Enviar"
+              disabled={isDisabled}
+              className="btn btn-large right"
+              colsize="s12"
+            >
               Log in
             </Button>
           </form>
         </div>
       </div>
       {error ? (
-        <div className="row mt-5" onClick={resetError}>
-          <div className="col s6">
+        <div className="row mt-5 txt-center" onClick={resetError}>
+          <div className="col s6 text-center">
             <div className="alert login-alert" role="alert">
               {error.message}
             </div>

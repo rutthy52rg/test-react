@@ -72,8 +72,9 @@ const NewAdvertPage = ({ ...props }) => {
           navigate("/login");
         }
         if (error.statusCode === 404) {
-          navigate("/404");
+          navigate("/404", { state: { message: error.statusCode } });
         }
+        navigate("/404", { state: { message: error } });
       }
     };
     execute();
@@ -119,6 +120,7 @@ const NewAdvertPage = ({ ...props }) => {
         onChange={handleChangeSelect}
         value={tags}
         placeholder="Upload photo here"
+        multiple
       ></Select>
       <Checkbox
         type="checkbox"

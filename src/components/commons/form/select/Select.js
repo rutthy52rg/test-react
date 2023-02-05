@@ -2,14 +2,28 @@ import classNames from "classnames";
 import M from "materialize-css/dist/js/materialize.min.js";
 import "./select.css";
 
-const Select = ({ className, label, ...props }) => {
-  const { optionarray, colsize } = props;
+const Select = ({
+  className,
+  label,
+  hasdefault,
+  optionarray,
+  valuedefault,
+  colsize,
+  ...props
+}) => {
   M.AutoInit();
 
   // console.log("select", optionarray);
   return (
-    <div className={`input-field col ${colsize}`} {...props}>
-      <select multiple className={classNames("", className)}>
+    <div className={`input-field col ${colsize}`}>
+      <select className={classNames("", className)} {...props}>
+        {hasdefault === "true" ? (
+          <option key={valuedefault} value={valuedefault}>
+            {valuedefault}
+          </option>
+        ) : (
+          ""
+        )}
         {optionarray
           ? optionarray.map((ele, idx) => (
               <option key={idx} value={ele}>

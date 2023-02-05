@@ -10,7 +10,7 @@ const Advert = ({ name, price, photo, tags, sale, url }) => {
         </p>
         <p className="name">{name}</p>
 
-        <p className="tags">{tags}</p>
+        <p className="tags">{tags ? tags.join(",") : ""}</p>
       </div>
       <div className="container-actions">
         <p>{price} €</p>

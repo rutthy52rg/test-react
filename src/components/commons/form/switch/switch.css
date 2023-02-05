@@ -1,0 +1,6 @@
+.switch {
+  margin: 20px 0;
+}
+.switch > label {
+  font-size: 16px;
+}
